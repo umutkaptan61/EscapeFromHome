@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyPlayer : MonoBehaviour
 {
-   /* public GameObject Player;
+    public GameObject Player;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,5 +12,5 @@ public class DestroyPlayer : MonoBehaviour
         {
             Destroy(Player.gameObject);
         }
-    }*/
+    }
 }
