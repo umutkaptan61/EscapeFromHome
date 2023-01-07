@@ -2,51 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MovingPlatform : MonoBehaviour
 {
-    public GameObject movingPlatform;
+    public Transform startPoint;
+    public Transform endPoint;
+    public float travelTime;
 
-    public bool bittiMi;
+    private Rigidbody rb;
+    private Vector3 currentPos;
 
-    void Start()
-    {
-        bittiMi = false;
-    }
-
+    CharacterController cc;
     
-    void FixedUpdate()
-    {
-        if (bittiMi == false)
-        {
-            movingPlatform.transform.position += new Vector3(0f, 1f, 0f) * Time.deltaTime;
-            StartCoroutine(TurnBack());
-        }
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
         
-        
-        if (bittiMi == true)
-        {
-            movingPlatform.transform.position += new Vector3(0f, -1f, 0f) * Time.deltaTime;
-            StartCoroutine(TurnBack2());
-        }
-         
     }
 
-    IEnumerator TurnBack()
+    private void FixedUpdate()
     {
-        yield return new WaitForSeconds(5f);
-        if (bittiMi == false)
-        {
-            bittiMi = true;
-        }       
+        currentPos = Vector3.Lerp(startPoint.position, endPoint.position, Mathf.Cos(Time.time / travelTime * Mathf.PI * 2) * -.5f + .5f);
+        rb.MovePosition(currentPos);
     }
 
-    IEnumerator TurnBack2()
-    {
-        yield return new WaitForSeconds(5f);
-        if (bittiMi == true)
-        {
-            bittiMi = false;
-        }
-    }
+     private void OnTriggerEnter(Collider other)
+     {
+
+         if (other.tag == "Player")
+         {
+             cc = other.GetComponent<CharacterController>();
+         }     
+     }
+
+     private void OnTriggerStay(Collider other)
+     {       
+         if (other.tag == "Player")
+         {
+             cc.Move(rb.velocity * Time.deltaTime);
+         }
+     }
+
+   
 }
