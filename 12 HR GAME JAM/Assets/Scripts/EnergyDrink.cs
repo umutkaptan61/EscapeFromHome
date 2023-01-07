@@ -6,54 +6,47 @@ using UnityEngine.UI;
 public class EnergyDrink : MonoBehaviour
 {
     public float energyDrinkNumber = 0f;
+    public GameObject Description;
     Move move;
 
-    [SerializeField] public Text energyDrinkNumberText;
+    [SerializeField] public Text energyDrinkNumberText;    
     [SerializeField] public Slider energyDrinkFullness;
 
     public float energyDrinkTime = 0f;
     public bool hasIEnergy;
+    public bool energyDrinkDescription;
 
     void Start()
     {
         hasIEnergy = false;
         move = FindObjectOfType<Move>();
         energyDrinkFullness.value = float.MinValue;
+        Description.SetActive(false);
+        energyDrinkDescription = false;
     }
 
 
     void Update()
     {
-        energyDrinkNumberText.text = energyDrinkNumber.ToString();
-        //float time = energyDrinkTime - Time.time;
+        energyDrinkNumberText.text = energyDrinkNumber.ToString();        
 
-        if (energyDrinkNumber >= 1)
-        {
-            //hasIEnergy = true;
+        if (energyDrinkNumber == 1)
+        {         
             energyDrinkFullness.value = float.MaxValue;
 
             if (Input.GetKeyDown(KeyCode.LeftControl))
-            {
-                hasIEnergy = true;
-                //energyDrinkTime -= Time.deltaTime;
-                //energyDrinkFullness.value += energyDrinkTime;
-                //energyDrinkFullness.value = float.MinValue - (float)Time.time;
+            {             
+                hasIEnergy = true;          
                 move.jumpHeight = move.jumpHeightWithEnergy;
-                StartCoroutine(ReduceTheEnergyDrinkNumber());               
+                StartCoroutine(ReduceTheEnergyDrinkNumber());             
             }
 
             else if (hasIEnergy == true)
             {              
                 energyDrinkTime += Time.deltaTime;
-                energyDrinkFullness.value -= energyDrinkTime;
-                //energyDrinkTime = 0f;
+                energyDrinkFullness.value -= energyDrinkTime;              
             }
         }
-
-        /*else if (hasIEnergy == true)
-        {
-            energyDrinkTime -= Time.deltaTime;
-        }*/
 
         else
         {
@@ -61,21 +54,39 @@ public class EnergyDrink : MonoBehaviour
             move.jumpHeight = move.jumpHeightNoEnergy;
         }
 
+
+
+        if (energyDrinkNumber == 1 && energyDrinkDescription == false)
+        {
+            Time.timeScale = 0f;
+            Description.SetActive(true);
+            
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                Time.timeScale = 1f;
+                energyDrinkDescription = true;
+                Destroy(Description);
+            }
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnergyDrink")
+        if (energyDrinkNumber == 0)
         {
-            energyDrinkNumber++;          
-            Destroy(other.gameObject);                                   
+            if (other.gameObject.tag == "EnergyDrink")
+            {
+                energyDrinkNumber++;
+                Destroy(other.gameObject);
+            }
         }
+       
     }
 
 
     IEnumerator ReduceTheEnergyDrinkNumber()
     {
-         //energyDrinkFullness.value = 
          yield return new WaitForSeconds(10f);
          energyDrinkNumber--;
          hasIEnergy = false;
