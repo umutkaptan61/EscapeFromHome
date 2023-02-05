@@ -7,6 +7,7 @@ public class EnergyDrink : MonoBehaviour
 {
     public float energyDrinkNumber = 0f;
     public GameObject Description;
+    public GameObject energyDrinkPrefab;
     Move move;
 
     [SerializeField] public Text energyDrinkNumberText;    
@@ -27,7 +28,7 @@ public class EnergyDrink : MonoBehaviour
 
 
     void Update()
-    {
+    {        
         energyDrinkNumberText.text = energyDrinkNumber.ToString();        
 
         if (energyDrinkNumber == 1)
@@ -38,7 +39,8 @@ public class EnergyDrink : MonoBehaviour
             {             
                 hasIEnergy = true;          
                 move.jumpHeight = move.jumpHeightWithEnergy;
-                StartCoroutine(ReduceTheEnergyDrinkNumber());             
+                StartCoroutine(ComeBackEnergyDrink());
+                StartCoroutine(ReduceTheEnergyDrinkNumber());                                                     
             }
 
             else if (hasIEnergy == true)
@@ -68,7 +70,7 @@ public class EnergyDrink : MonoBehaviour
                 Destroy(Description);
             }
         }
-
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -77,7 +79,7 @@ public class EnergyDrink : MonoBehaviour
         {
             if (other.gameObject.tag == "EnergyDrink")
             {
-                energyDrinkNumber++;
+                energyDrinkNumber = 1;
                 Destroy(other.gameObject);
             }
         }
@@ -86,11 +88,17 @@ public class EnergyDrink : MonoBehaviour
 
 
     IEnumerator ReduceTheEnergyDrinkNumber()
-    {
-         yield return new WaitForSeconds(10f);
-         energyDrinkNumber--;
+    {       
+         yield return new WaitForSeconds(5f);
+         energyDrinkNumber = 0;
          hasIEnergy = false;
-         energyDrinkTime = 0f;
+         energyDrinkTime = 0f;                
     }
-       
+
+
+    IEnumerator ComeBackEnergyDrink()   //En son aldýðýn enerji içececeðini kullanýnca tekrardan yerinde yenisi oluþacak.
+    {
+        yield return new WaitForSeconds(10f);
+        Instantiate(energyDrinkPrefab, EnergyDrinkInEnergyDrink._lastEnergyDrinkTransform, Quaternion.identity);
+    }       
 }

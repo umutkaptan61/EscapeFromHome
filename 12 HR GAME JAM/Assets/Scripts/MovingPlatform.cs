@@ -17,8 +17,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        
+        rb = GetComponent<Rigidbody>();       
     }
 
     private void FixedUpdate()

@@ -7,6 +7,10 @@ public class Move : MonoBehaviour
     public CharacterController characterController;
     public Animator animator;
     public Transform cam;
+    public AudioSource jumpSounds;
+    
+    public static Vector3 _lastTransform;   //Checkpoint noktasý tespit etmek için
+
 
     [Header("Movement")]
     public float speed = 2f;
@@ -30,7 +34,7 @@ public class Move : MonoBehaviour
 
     private void Start()
     {
-        jumpHeight = jumpHeightNoEnergy;
+        jumpHeight = jumpHeightNoEnergy;       
     }
 
     private void Update()
@@ -66,6 +70,7 @@ public class Move : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            jumpSounds.Play();
             velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
         }
 
@@ -100,7 +105,8 @@ public class Move : MonoBehaviour
             speed = 1f;
         }
 
-        
+
+       
     }
 
 }
