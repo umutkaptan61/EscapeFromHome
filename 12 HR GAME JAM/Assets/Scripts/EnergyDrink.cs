@@ -16,6 +16,7 @@ public class EnergyDrink : MonoBehaviour
     public float energyDrinkTime = 0f;
     public bool hasIEnergy;
     public bool energyDrinkDescription;
+    public bool hasComeBackEnergy;   //Enerji geri getirmek için
 
     void Start()
     {
@@ -24,11 +25,13 @@ public class EnergyDrink : MonoBehaviour
         energyDrinkFullness.value = float.MinValue;
         Description.SetActive(false);
         energyDrinkDescription = false;
+        hasComeBackEnergy = false;
     }
 
 
     void Update()
-    {        
+    {
+        
         energyDrinkNumberText.text = energyDrinkNumber.ToString();        
 
         if (energyDrinkNumber == 1)
@@ -38,9 +41,12 @@ public class EnergyDrink : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {             
                 hasIEnergy = true;          
-                move.jumpHeight = move.jumpHeightWithEnergy;
-                StartCoroutine(ComeBackEnergyDrink());
-                StartCoroutine(ReduceTheEnergyDrinkNumber());                                                     
+                move.jumpHeight = move.jumpHeightWithEnergy;              
+                StartCoroutine(ReduceTheEnergyDrinkNumber());
+                if (hasComeBackEnergy == false)
+                {
+                    StartCoroutine(ComeBackEnergyDrink());
+                }            
             }
 
             else if (hasIEnergy == true)
@@ -98,7 +104,9 @@ public class EnergyDrink : MonoBehaviour
 
     IEnumerator ComeBackEnergyDrink()   //En son aldýðýn enerji içececeðini kullanýnca tekrardan yerinde yenisi oluþacak.
     {
+        hasComeBackEnergy = true;
         yield return new WaitForSeconds(10f);
         Instantiate(energyDrinkPrefab, EnergyDrinkInEnergyDrink._lastEnergyDrinkTransform, Quaternion.identity);
+        hasComeBackEnergy = false;
     }       
 }

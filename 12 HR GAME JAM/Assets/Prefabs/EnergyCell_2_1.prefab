@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2405931099e865248b62fde326e32a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: {x: 0, y: 0.5, z: 0}
+  angle: {x: 0, y: 1, z: 0}
 --- !u!114 &22796617781896437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7478645024e4814499d061279bd30e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyDrinkPrefab: {fileID: 5446056490115625624}
 --- !u!1 &5446056490115625628
 GameObject:
   m_ObjectHideFlags: 0

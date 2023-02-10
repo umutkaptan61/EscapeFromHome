@@ -7,7 +7,7 @@ public class OpenTheDoor2 : MonoBehaviour
     public GameObject Instruction;
     public GameObject AnimeObject;
     public GameObject thisTrigger;
-    //public AudioSource doorOpenSound;
+    public AudioSource doorOpenSound;
     public bool action = false;
     KeyManager keyManager;
 
@@ -43,7 +43,7 @@ public class OpenTheDoor2 : MonoBehaviour
                 Instruction.SetActive(false);
                 AnimeObject.GetComponent<Animator>().Play("OpenTheDoor");
                 thisTrigger.SetActive(false);
-                //doorOpenSound.Play();
+                doorOpenSound.Play();
                 action = false;
             }
         }

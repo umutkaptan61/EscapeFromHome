@@ -10,6 +10,10 @@ public class ReturnObject : MonoBehaviour
     
     void Update()
     {
-        transform.Rotate(angle, Space.World);
+        if (GameManager.gameIsPaused == false)
+        {
+            transform.Rotate(angle, Space.World);
+        }
+        
     }
 }
