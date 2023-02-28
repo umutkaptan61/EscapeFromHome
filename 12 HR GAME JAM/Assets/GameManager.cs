@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameIsPaused = false;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
     }
 
@@ -22,8 +23,7 @@ public class GameManager : MonoBehaviour
         {
             if(gameIsPaused == false)   //Oyunu durdurma kýsmý
             {
-                PauseMenu.SetActive(true);
-                //Cursor.visible = true;
+                PauseMenu.SetActive(true);              
                 Time.timeScale = 0;
                 gameIsPaused = true;
             }         
@@ -35,8 +35,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameIsPaused == true)
         {
-            PauseMenu.SetActive(false);
-            //Cursor.visible = false;
+            PauseMenu.SetActive(false);           
             Time.timeScale = 1f;
             gameIsPaused = false;
         }
@@ -45,8 +44,7 @@ public class GameManager : MonoBehaviour
 
     public void BackTheMainMenu()
     {
-        PauseMenu.SetActive(false);
-        //Cursor.visible = true;
+        PauseMenu.SetActive(false);     
         Time.timeScale = 1f;
         gameIsPaused = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);

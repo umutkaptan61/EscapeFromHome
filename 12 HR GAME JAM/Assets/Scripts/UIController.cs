@@ -9,11 +9,14 @@ public class UIController : MonoBehaviour
     public GameObject firstPanel;
     private bool panelOn;
 
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     private void Start()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = false;
+    {      
         panelOn = false;
     }
     public void StartGame()

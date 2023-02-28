@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class DestroyPlayer : MonoBehaviour
 {
-    public float characterHealth = 10f;
+    public float characterHealth = 25f;
     public float currentHealth;
     public Slider characterHealthSlider;
     public Gradient gradient;
     public Image fill;
 
-    public GameObject Player;
+    public GameObject Player;   
     private EnergyDrink energyDrink;
     public AudioSource getDamageSounds;
   
@@ -41,8 +41,15 @@ public class DestroyPlayer : MonoBehaviour
             Player.transform.position = Move._lastTransform;           
             Player.GetComponent<CharacterController>().enabled = true;        
         }
+
+        if (other.gameObject.tag == "HealthKit")
+        {
+            currentHealth = characterHealth;          
+            Destroy(other.gameObject);
+        }
     }
 
+    
 
     private void FinishGame()
     {
@@ -53,6 +60,8 @@ public class DestroyPlayer : MonoBehaviour
     }
 
 
+    
+    
     
 
 
