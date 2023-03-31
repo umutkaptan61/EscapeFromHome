@@ -1,2 +1,2 @@
 # EscapeFromHome
- Kendi yaptığım evden kaçış oyunum
+ Kendim yaptığım PC için platform ve bulmaca oyunu
